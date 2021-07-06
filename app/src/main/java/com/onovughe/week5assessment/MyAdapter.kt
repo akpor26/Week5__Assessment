@@ -1,6 +1,7 @@
 package com.onovughe.week5assessment
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,12 +26,26 @@ class MyAdapter (val arrayList: ArrayList<Model>, val context: Context):
         return ViewHolder(v)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bindItems(arrayList[position])
-
-    }
-
     override fun getItemCount(): Int {
         return arrayList.size
     }
+
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.bindItems(arrayList[position])
+
+        val model = arrayList.get(position)
+        val gTitle: String = model.title
+        val gDes: String = model.des
+        val gImageView: Int = model.image
+
+        val intent = Intent(context, DetailsActivity::class.java)
+        intent.putExtra("iTitle", gTitle)
+        intent.putExtra("iDescription", gDes)
+        intent.putExtra("iImageView", gImageView)
+
+        context.startActivity(intent)
+    }
+
+
 }
